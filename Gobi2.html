@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIM MEC '26 - Technical Quiz</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            --card-bg: #ffffff;
+            --primary-blue: #0284c7;
+            --primary-hover: #0369a1;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border-color: #7dd3fc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 15px 30px rgba(2, 132, 199, 0.15);
+            width: 100%;
+            max-width: 750px;
+            padding: 35px;
+            text-align: center;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Hero Header Style for Page 1 */
+        .college-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0369a1;
+            white-space: nowrap;
+            margin-bottom: 5px;
+        }
+
+        .college-address {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .event-banner {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
+        }
+
+        .event-title {
+            font-size: 36px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            font-family: 'Arial Black', Gadget, sans-serif;
+        }
+
+        .event-subtitle {
+            font-size: 18px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* Forms & Controls */
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background-color: #f8fafc;
+        }
+
+        input:focus {
+            border-color: var(--primary-blue);
+            background-color: #fff;
+        }
+
+        .btn {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background-color: #e0f2fe;
+            color: var(--primary-hover);
+        }
+
+        /* Profile Card */
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #f0f9ff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* Navigation Tabs / Menus */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .menu-card {
+            background: #f8fafc;
+            border: 1.5px solid var(--border-color);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .menu-card:hover, .menu-card.active-menu {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e0f2fe;
+            color: var(--primary-blue);
+        }
+
+        .status-complete {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .status-incomplete {
+            color: #dc2626;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- PAGE 1: LANDING PAGE -->
+        <div id="landing-page" class="page-section active">
+            <div class="college-title">Muthayammal Engineering College (Autonomous)</div>
+            <div class="college-address">Rasipuram, Namakkal, Tamil Nadu - 637408</div>
+            
+            <div class="event-banner">
+                <div class="event-title">SIM MEC '26</div>
+                <div class="event-subtitle">Technical Quiz Competition</div>
+            </div>
+            
+            <p style="margin-bottom: 25px; font-weight: 500;">Department of Mechanical Engineering</p>
+            
+            <button class="btn" id="login-nav-btn" onclick="navigateTo('portal-selection')">Click Here & Login</button>
+        </div>
+
+        <!-- PAGE 2: PORTAL SELECTION -->
+        <div id="portal-selection" class="page-section">
+            <h2 style="color: var(--primary-blue); margin-bottom: 10px;">Select Login Portal</h2>
+            <p style="margin-bottom: 25px;">Please choose your role to continue</p>
+            
+            <button class="btn" onclick="navigateTo('participant-login')" style="margin-bottom: 15px;">Participant Portal</button>
+            <button class="btn btn-outline" onclick="navigateTo('coordinator-login')">Coordinator Portal</button>
+        </div>
+
+        <!-- PAGE 3: PARTICIPANT LOGIN -->
+        <div id="participant-login" class="page-section">
+            <h2 style="color: var(--primary-blue); margin-bottom: 20px;">Participant Registration & Login</h2>
+            <form onsubmit="handleParticipantLogin(event)">
+                <div class="form-group">
+                    <label>User Name (For Certificate)</label>
+                    <input type="text" id="p-name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Gmail ID</label>
+                    <input type="email" id="p-email" required placeholder="example@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="p-pass" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn">Login / Register</button>
+            </form>
+        </div>
+
+        <!-- PAGE 4: PARTICIPANT DASHBOARD -->
+        <div id="participant-dashboard" class="page-section">
+            <div class="profile-card">
+                <div class="profile-avatar">👨‍🎓</div>
+                <div>
+                    <h3 id="display-p-name">Gobi</h3>
+                    <p id="display-p-email" style="font-size: 13px; color: var(--text-muted);">gobi@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-card active-menu">My Dashboard</div>
+            </div>
+
+            <div style="background: #f8fafc; padding: 20px; border-radius: 10px; border: 1px solid var(--border-color);">
+                <h3>Quiz Status</h3>
+                <p id="p-quiz-status" style="margin: 15px 0; color: #d97706; font-weight: bold;">Waiting for Coordinator Permission to start...</p>
+                <hr style="margin: 15px 0; border: 0; border-top: 1px solid var(--border-color);">
+                
+                <h3>My Results & Certificate</h3>
+                <p style="font-size: 13px; margin: 10px 0;">Results will appear once published by Coordinator.</p>
+                <button class="btn btn-outline" style="width: auto;" disabled>Download Certificate</button>
+            </div>
+        </div>
+
+        <!-- PAGE 5: COORDINATOR LOGIN -->
+        <div id="coordinator-login" class="page-section">
+            <h2 style="color: var(--primary-blue); margin-bottom: 20px;">Coordinator Login</h2>
+            <form onsubmit="handleCoordinatorLogin(event)">
+                <div class="form-group">
+                    <label>Coordinator Name</label>
+                    <input type="text" id="c-name" required placeholder="Enter Name">
+                </div>
+                <div class="form-group">
+                    <label>Gmail ID</label>
+                    <input type="email" id="c-email" required placeholder="coordinator@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" required placeholder="Password">
+                </div>
+                <button type="submit" class="btn">Login to Coordinator Dashboard</button>
+            </form>
+        </div>
+
+        <!-- PAGE 6: COORDINATOR DASHBOARD -->
+        <div id="coordinator-dashboard" class="page-section">
+            <div class="profile-card">
+                <div class="profile-avatar">👨‍🏫</div>
+                <div>
+                    <h3><span id="display-c-name">Coordinator</span> <span style="font-size: 12px; color: var(--primary-blue);">(Coordinator)</span></h3>
+                    <p id="display-c-email" style="font-size: 13px; color: var(--text-muted);">coordinator@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- Menus -->
+            <div class="menu-grid">
+                <div class="menu-card" onclick="showCoordSection('c-cert-section')">1. Certificate Upload</div>
+                <div class="menu-card" onclick="showCoordSection('c-reg-section')">2. Registered List</div>
+                <div class="menu-card" onclick="showCoordSection('c-status-section')">3. Quiz Completion</div>
+                <div class="menu-card" onclick="showCoordSection('c-rank-section')">4. Rank List</div>
+            </div>
+
+            <!-- 1. Certificate Upload -->
+            <div id="c-cert-section" class="coord-sub-section">
+                <h3>Upload Certificate Template</h3>
+                <div class="form-group" style="margin-top: 15px;">
+                    <input type="file" accept=".pdf, .png, .jpg">
+                </div>
+                <button class="btn" onclick="alert('Certificate Template Uploaded Successfully!')">Upload Certificate</button>
+            </div>
+
+            <!-- 2. Registered List -->
+            <div id="c-reg-section" class="coord-sub-section" style="display: none;">
+                <h3>Registered Participants</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Gmail ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Gobinath</td><td>gobi@gmail.com</td></tr>
+                        <tr><td>2</td><td>Sankar</td><td>sankar@gmail.com</td></tr>
+                        <tr><td>3</td><td>Murugan</td><td>murugan@gmail.com</td></tr>
+                    </tbody>
+                </table>
+                <button class="btn" style="margin-top: 20px;" onclick="alert('Permission Granted! Quiz Started for participants.')">Permit to Start the Quiz</button>
+            </div>
+
+            <!-- 3. Quiz Completion Status -->
+            <div id="c-status-section" class="coord-sub-section" style="display: none;">
+                <h3>Quiz Completion & Direct Score</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Gmail ID</th>
+                            <th>Status</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Gobinath</td><td>gobi@gmail.com</td><td class="status-complete">Complete</td><td>18 / 20</td></tr>
+                        <tr><td>2</td><td>Sankar</td><td>sankar@gmail.com</td><td class="status-complete">Complete</td><td>15 / 20</td></tr>
+                        <tr><td>3</td><td>Murugan</td><td>murugan@gmail.com</td><td class="status-incomplete">Incomplete</td><td>--</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 4. Rank List -->
+            <div id="c-rank-section" class="coord-sub-section" style="display: none;">
+                <h3>Final Rank List</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Gmail ID</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Gobinath</td><td>gobi@gmail.com</td><td>18 / 20</td></tr>
+                        <tr><td>2</td><td>Sankar</td><td>sankar@gmail.com</td><td>15 / 20</td></tr>
+                    </tbody>
+                </table>
+                <button class="btn" style="margin-top: 20px;" onclick="alert('Rank List, Scores and Certificates Published to Participant Dashboards!')">Publish Rank List & Certificates</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Direct Navigation Logic (Fixes Navigation Glitch)
+        function navigateTo(sectionId) {
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+        }
+
+        // Participant Login Handling
+        function handleParticipantLogin(event) {
+            event.preventDefault();
+            const name = document.getElementById('p-name').value;
+            const email = document.getElementById('p-email').value;
+
+            document.getElementById('display-p-name').innerText = name;
+            document.getElementById('display-p-email').innerText = email;
+
+            navigateTo('participant-dashboard');
+        }
+
+        // Coordinator Login Handling
+        function handleCoordinatorLogin(event) {
+            event.preventDefault();
+            const name = document.getElementById('c-name').value;
+            const email = document.getElementById('c-email').value;
+
+            document.getElementById('display-c-name').innerText = name;
+            document.getElementById('display-c-email').innerText = email;
+
+            navigateTo('coordinator-dashboard');
+        }
+
+        // Coordinator Sub-menu Navigation
+        function showCoordSection(subSectionId) {
+            const subSections = document.querySelectorAll('.coord-sub-section');
+            subSections.forEach(sec => sec.style.display = 'none');
+            
+            document.getElementById(subSectionId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
